@@ -13,21 +13,22 @@ import br.edu.ifce.retromarket.entities.Completude;
 import br.edu.ifce.retromarket.repositories.CompletudeRepository;
 
 @RestController
-@RequestMapping(value = "/completudes")
-public class CompletudeController {
+@RequestMapping(value = "/anuncios")
+public class AnuncioController {
 
   @Autowired
   private CompletudeRepository repository;
 
   // Método para retornar a lista de
-  @GetMapping
+  @GetMapping("/completudes")
   public List<Completude> buscarCompletudes() {
     return repository.findAll();
   }
 
-  @PostMapping
+  @PostMapping("/completudes")
   public Completude criarCompletude(@RequestBody Completude completude) {
     return repository.save(completude);
   }
+
 
 }
