@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifce.retromarket.dtos.AnuncioResponseDTO;
@@ -13,7 +14,7 @@ import br.edu.ifce.retromarket.entities.Anuncio;
 import br.edu.ifce.retromarket.entities.Completude;
 import br.edu.ifce.retromarket.repositories.AnuncioRepository;
 import br.edu.ifce.retromarket.repositories.CompletudeRepository;
-
+import org.springframework.data.domain.Page;
 @Service
 public class AnuncioService {
 
@@ -23,16 +24,12 @@ public class AnuncioService {
     @Autowired
     private CompletudeRepository repository;
 
-    public List<AnuncioResponseDTO> listarAnuncios() {
-      List<Anuncio> anuncios = anuncioRepository.findAll();
+  public Page<AnuncioResponseDTO> listarAnuncios(Pageable pageable) {
+    Page<Anuncio> anuncios = anuncioRepository.findAll(pageable);
 
-      List<AnuncioResponseDTO> anunciosDTO = new ArrayList<>();
-
-    for (Anuncio anuncio : anuncios) {
-        anunciosDTO.add(toAnuncioResponseDTO(anuncio));
-}
-return anunciosDTO;
-    }
+    Page<AnuncioResponseDTO> pageDTO = anuncios.map(this::toAnuncioResponseDTO);
+    return pageDTO;
+  }
 
     public Completude criarCompletude(Completude completude) {
         return repository.save(completude);

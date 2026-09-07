@@ -14,6 +14,8 @@ import br.edu.ifce.retromarket.entities.Anuncio;
 import br.edu.ifce.retromarket.entities.Completude;
 import br.edu.ifce.retromarket.repositories.CompletudeRepository;
 import br.edu.ifce.retromarket.services.AnuncioService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping(value = "/anuncios")
@@ -34,8 +36,8 @@ public class AnuncioController {
   }
 
   @GetMapping
-  public List<AnuncioResponseDTO> listarAnuncios() {
-    return service.listarAnuncios();
+  public Page<AnuncioResponseDTO> listarAnuncios(Pageable pageable) {
+    return service.listarAnuncios(pageable);
   }
 
 }
