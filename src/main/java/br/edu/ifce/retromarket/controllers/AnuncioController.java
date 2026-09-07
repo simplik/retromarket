@@ -1,14 +1,17 @@
 package br.edu.ifce.retromarket.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ifce.retromarket.dtos.AnuncioDetalhesDTO;
 import br.edu.ifce.retromarket.dtos.AnuncioResponseDTO;
 import br.edu.ifce.retromarket.entities.Anuncio;
 import br.edu.ifce.retromarket.entities.Completude;
@@ -16,6 +19,7 @@ import br.edu.ifce.retromarket.repositories.CompletudeRepository;
 import br.edu.ifce.retromarket.services.AnuncioService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping(value = "/anuncios")
@@ -40,4 +44,9 @@ public class AnuncioController {
     return service.listarAnuncios(pageable);
   }
 
+  @GetMapping("/{id}")
+  public ResponseEntity<AnuncioDetalhesDTO> buscarPorId(@PathVariable Long id) {
+    Optional<AnuncioDetalhesDTO> anuncio = service.buscarPorId(id);
+    return anuncio.map(a -> ResponseEntity.ok(a)).orElse(ResponseEntity.status(404).build());
+}
 }
