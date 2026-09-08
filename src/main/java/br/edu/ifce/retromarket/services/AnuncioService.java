@@ -174,7 +174,7 @@ public class AnuncioService {
     
     List<FotoAnuncio> fotos = new ArrayList<>();
 
-    for (int i = 0; i > anuncioDTO.getUrlsFotos().size(); i++) {
+    for (int i = 0; i < anuncioDTO.getUrlsFotos().size(); i++) {
       FotoAnuncio foto = new FotoAnuncio();
 
       foto.setUrl(anuncioDTO.getUrlsFotos().get(i));
