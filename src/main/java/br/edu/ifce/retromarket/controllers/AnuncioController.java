@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifce.retromarket.dtos.AnuncioDetalhesDTO;
+import br.edu.ifce.retromarket.dtos.AnuncioRequestDTO;
 import br.edu.ifce.retromarket.dtos.AnuncioResponseDTO;
 import br.edu.ifce.retromarket.entities.Anuncio;
 import br.edu.ifce.retromarket.entities.Completude;
@@ -19,6 +20,7 @@ import br.edu.ifce.retromarket.repositories.CompletudeRepository;
 import br.edu.ifce.retromarket.services.AnuncioService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @RestController
@@ -48,5 +50,11 @@ public class AnuncioController {
   public ResponseEntity<AnuncioDetalhesDTO> buscarPorId(@PathVariable Long id) {
     Optional<AnuncioDetalhesDTO> anuncio = service.buscarPorId(id);
     return anuncio.map(a -> ResponseEntity.ok(a)).orElse(ResponseEntity.status(404).build());
+}
+
+  @PostMapping
+  public ResponseEntity<AnuncioDetalhesDTO> criarAnuncio(@RequestBody AnuncioRequestDTO anuncioDTO) {
+      AnuncioDetalhesDTO anuncioCriado = service.criarAnuncio(anuncioDTO);
+      return ResponseEntity.status(HttpStatus.CREATED).body(anuncioCriado);
 }
 }
