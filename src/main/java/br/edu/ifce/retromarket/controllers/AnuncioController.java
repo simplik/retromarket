@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,5 +57,12 @@ public class AnuncioController {
   public ResponseEntity<AnuncioDetalhesDTO> criarAnuncio(@RequestBody AnuncioRequestDTO anuncioDTO) {
       AnuncioDetalhesDTO anuncioCriado = service.criarAnuncio(anuncioDTO);
       return ResponseEntity.status(HttpStatus.CREATED).body(anuncioCriado);
+}
+
+@PutMapping("/{id}")
+  public ResponseEntity<AnuncioDetalhesDTO> atualizarAnuncio(@RequestBody AnuncioRequestDTO anuncioDTO,
+      @PathVariable Long id) {
+      AnuncioDetalhesDTO anuncioAtualizado = service.atualizarAnuncio(anuncioDTO, id);
+      return ResponseEntity.status(HttpStatus.OK).body(anuncioAtualizado);
 }
 }
