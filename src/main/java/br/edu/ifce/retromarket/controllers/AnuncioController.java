@@ -48,8 +48,8 @@ public class AnuncioController {
 
   @GetMapping("/{id}")
   public ResponseEntity<AnuncioDetalhesDTO> buscarPorId(@PathVariable Long id) {
-    Optional<AnuncioDetalhesDTO> anuncio = service.buscarPorId(id);
-    return anuncio.map(a -> ResponseEntity.ok(a)).orElse(ResponseEntity.status(404).build());
+    AnuncioDetalhesDTO anuncio = service.buscarPorId(id);
+    return ResponseEntity.ok(anuncio);
 }
 
   @PostMapping
