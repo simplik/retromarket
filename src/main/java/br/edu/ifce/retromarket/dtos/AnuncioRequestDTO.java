@@ -4,20 +4,46 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 public class AnuncioRequestDTO {
 
+  @NotBlank(message = "O título é obrigatório.")
+  @Size(max = 150, message = "O título deve possuir no máximo 150 caracteres.")
   private String titulo;
-  private BigDecimal preco;
-  private String localizacao;
-  private String descricao;
-  private List<String> urlsFotos;
-  private Long idCategoria;
-  private Long idPlataforma;
-  private String codigoCompletude;
-  private String codigoCondicao;
-  private String codigoStatus;
-  private Long idUsuario;
 
+  @NotNull(message = "O preço é obrigatório.")
+  @Positive(message = "O preço deve ser maior que zero.")
+  private BigDecimal preco;
+
+  @NotBlank(message = "A localização é obrigatória.")
+  private String localizacao;
+
+  @NotBlank(message = "A descrição é obrigatória.")
+  private String descricao;
+
+  private List<String> urlsFotos;
+
+  @NotNull (message = "A categoria é obrigatória.")
+  private Long idCategoria;
+
+  @NotNull(message = "A plataforma é obrigatória.")
+  private Long idPlataforma;
+
+  @NotBlank(message = "A completude é obrigatória.")
+  private String codigoCompletude;
+
+  @NotBlank(message = "A condição é obrigatória.")
+  private String codigoCondicao;
+
+  @NotBlank(message = "O status é obrigatório.")
+  private String codigoStatus;
+
+  private Long idUsuario;
+  
   public AnuncioRequestDTO() {
     this.urlsFotos = new ArrayList<>();
   }

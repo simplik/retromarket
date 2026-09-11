@@ -19,6 +19,8 @@ import br.edu.ifce.retromarket.entities.Anuncio;
 import br.edu.ifce.retromarket.entities.Completude;
 import br.edu.ifce.retromarket.repositories.CompletudeRepository;
 import br.edu.ifce.retromarket.services.AnuncioService;
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -54,7 +56,7 @@ public class AnuncioController {
 }
 
   @PostMapping
-  public ResponseEntity<AnuncioDetalhesDTO> criarAnuncio(@RequestBody AnuncioRequestDTO anuncioDTO) {
+  public ResponseEntity<AnuncioDetalhesDTO> criarAnuncio(@Valid @RequestBody AnuncioRequestDTO anuncioDTO) {
       AnuncioDetalhesDTO anuncioCriado = service.criarAnuncio(anuncioDTO);
       return ResponseEntity.status(HttpStatus.CREATED).body(anuncioCriado);
 }
